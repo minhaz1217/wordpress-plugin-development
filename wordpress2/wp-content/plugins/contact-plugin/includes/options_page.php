@@ -15,7 +15,7 @@ function create_options_page()
 {
     $plugin_prefix = "contact_plugin_";
     Container::make('theme_options', __('Contact Form'))
-        ->set_icon("dashicons-carrot")
+        ->set_icon("dashicons-media-text")
         ->add_fields(array(
             Field::make("checkbox", $plugin_prefix . "active", __("Active")),
 
