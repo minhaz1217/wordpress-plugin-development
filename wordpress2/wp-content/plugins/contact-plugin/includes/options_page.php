@@ -15,6 +15,7 @@ function create_options_page()
 {
     $plugin_prefix = "contact_plugin_";
     Container::make('theme_options', __('Contact Form'))
+        ->set_icon("dashicons-carrot")
         ->add_fields(array(
             Field::make("checkbox", $plugin_prefix . "active", __("Active")),
 
@@ -24,6 +25,6 @@ function create_options_page()
 
             Field::make('textarea', $plugin_prefix . "message", __('Confirmation Message'))
                 ->set_attribute("placeholder", "Enter confirmation message")
-                ->set_help_text("Type the message you want the submitter to receive"),
+                ->set_help_text("Type the message you want the submitter to receiveasdf"),
         ));
 }
