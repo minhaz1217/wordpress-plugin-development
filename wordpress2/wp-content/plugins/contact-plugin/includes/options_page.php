@@ -11,7 +11,7 @@ function load_carbon_fields(){
 }
 
 function create_options_page(){
-    Container::make( 'theme_options', __( 'Theme Options' ) )
+    Container::make( 'theme_options', __( 'Contact Options' ) )
     ->add_fields( array(
         Field::make( 'text', 'crb_facebook_url', __( 'Facebook URL' ) ),
         Field::make( 'textarea', 'crb_footer_text', __( 'Footer Text' ) )
