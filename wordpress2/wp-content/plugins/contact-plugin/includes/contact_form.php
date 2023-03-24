@@ -6,6 +6,29 @@ add_action("rest_api_init", "create_rest_endpoint");
 
 add_action("init", "create_submissions_page");
 
+add_action("add_meta_boxes", "create_meta_box");
+
+function create_meta_box()
+{
+    add_meta_box("custom_contact_form", "Submission", "display_submission", "submission");
+}
+
+function display_submission()
+{
+    $postMetas = get_post_meta(get_the_ID());
+
+    unset($postMetas["_edit_lock"]);
+    unset($postMetas["rest_route"]);
+
+    echo "<ul>";
+
+    foreach ($postMetas as $key => $value) {
+        echo "<li><strong>" . ucfirst($key) . "</strong><br />" . $value[0] . "</li>";
+    }
+
+    echo "</ul>";
+}
+
 function create_submissions_page()
 {
     $args = [
@@ -15,7 +38,8 @@ function create_submissions_page()
             "name" => "Submissions",
             "singular_name" => "Submission"
         ],
-        "supports" => ["custom-fields"],
+        "supports" => false,
+        // "supports" => ["custom-fields"],
         // "supports" => ["title", "editor",  "custom-fields"],
         // "capability_type" => "post",
         // "capabilities" => ["create_posts" => "do_not_allow"]
@@ -62,7 +86,8 @@ function handle_enquiry($data)
 
     $postArr = [
         "post_title" => $params["name"],
-        "post_type" => "submission"
+        "post_type" => "submission",
+        "post_status" => "published"
     ];
     $post_id = wp_insert_post($postArr);
 
