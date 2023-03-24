@@ -154,12 +154,23 @@ function handle_enquiry($data)
     unset($params["_wpnonce"]);
     unset($params["_wp_http_referer"]);
 
+    $name = $params["name"];
+
     $headers = [];
 
     $sender_email = get_bloginfo("admin_email");
     $sender_name = get_bloginfo("name");
+    $recipient_email = get_plugin_options("contact_plugin_recipients");
+    $confirmation_message = get_plugin_options("contact_plugin_message");
+    if ($confirmation_message) {
+        $confirmation_message = str_replace("{name}", $name, $confirmation_message);
+    }
 
-    $headers[] = "From: {{$sender_name}} <{$sender_email}>";
+    if (!$recipient_email) {
+        $recipient_email = $sender_email;
+    }
+
+    $headers[] = "From: {{$sender_name}} <{$recipient_email}>";
     $headers[] = "Reply-to: <{$params['name']}> <{$params['email']}> ";
     $headers[] = "Content-Type: text/html";
 
@@ -181,8 +192,11 @@ function handle_enquiry($data)
         add_post_meta($post_id, $label,  sanitize_text_field($value));
     }
 
+    if (!$confirmation_message) {
+        $confirmation_message = "Message sent";
+    }
 
-    wp_mail($sender_email, $subject, $message, $headers);
+    wp_mail($recipient_email, $subject, $message, $headers);
 
-    return new WP_REST_Response("Message sent", 200);
+    return new WP_REST_Response($confirmation_message, 200);
 }
