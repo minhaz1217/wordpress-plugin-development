@@ -14,6 +14,13 @@ add_action("manage_submission_posts_custom_column", "fill_submission_columns", 1
 
 add_action("admin_init", "setup_search");
 
+add_action("wp_enqueue_scripts", "enqueue_custom_script");
+
+function enqueue_custom_script()
+{
+    wp_enqueue_style("contact-form-plugin", MY_PLUGIN_URL . "/assets/css/contact-plugin.css");
+}
+
 function setup_search()
 {
     global $typenow;
