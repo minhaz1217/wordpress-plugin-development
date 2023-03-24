@@ -1,4 +1,7 @@
+<div id="form_success" style="background-color: green; color:white;"></div>
+<div id="form_error" style="background-color:red; color:white;"></div>
 <form id='enquiry_form'>
+
     <?php wp_nonce_field('wp_rest') ?>
     <label>Name</label> <br />
     <input type="text" name="name" /><br />
@@ -26,7 +29,14 @@
                 $.ajax({
                     type: "POST",
                     url: "<?php echo get_rest_url(null, 'v1/contact-form/submit') ?>",
-                    data: form.serialize()
+                    data: form.serialize(),
+                    success: function(res) {
+                        form.hide();
+                        $("#form_success").html(res).fadeIn();
+                    },
+                    error: function(err) {
+                        $("#form_error").html(err).fadeIn();
+                    }
                 });
             });
 
