@@ -3,6 +3,10 @@
 use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
+if (!defined("ABSPATH")) {
+    die("you can't be here");
+}
+
 add_action('after_setup_theme', 'load_carbon_fields');
 add_action('carbon_fields_register_fields', 'create_options_page');
 

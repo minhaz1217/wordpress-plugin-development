@@ -1,4 +1,7 @@
 <?php
+if (!defined("ABSPATH")) {
+    die("you can't be here");
+}
 
 add_shortcode("contact", "show_contact_form");
 
@@ -175,7 +178,7 @@ function handle_enquiry($data)
 
     foreach ($params as $label => $value) {
         $message .= "<strong>" . ucfirst($label) . '</strong>: ' . $value . "<br />";
-        add_post_meta($post_id, $label, $value);
+        add_post_meta($post_id, $label,  sanitize_text_field($value));
     }
 
 
