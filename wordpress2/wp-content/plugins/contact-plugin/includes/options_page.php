@@ -20,6 +20,7 @@ function create_options_page()
     $plugin_prefix = "contact_plugin_";
     Container::make('theme_options', __('Contact Form'))
         ->set_icon("dashicons-media-text")
+        ->set_page_menu_position(30)
         ->add_fields(array(
             Field::make("checkbox", $plugin_prefix . "active", __("Active")),
 
