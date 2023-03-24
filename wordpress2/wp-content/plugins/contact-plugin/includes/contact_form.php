@@ -15,8 +15,10 @@ function create_submissions_page()
             "name" => "Submissions",
             "singular_name" => "Submission"
         ],
+        "supports" => ["custom-fields"],
+        // "supports" => ["title", "editor",  "custom-fields"],
         // "capability_type" => "post",
-        "capabilities" => ["create_posts" => "do_not_allow"]
+        // "capabilities" => ["create_posts" => "do_not_allow"]
     ];
     register_post_type("submission", $args);
 }
@@ -58,9 +60,18 @@ function handle_enquiry($data)
     $message = "";
     $message .= "<h1>Message has been sent from {$params['name']}</h1> <br /> <br />";
 
+    $postArr = [
+        "post_title" => $params["name"],
+        "post_type" => "submission"
+    ];
+    $post_id = wp_insert_post($postArr);
+
+
     foreach ($params as $label => $value) {
         $message .= "<strong>" . ucfirst($label) . '</strong>: ' . $value . "<br />";
+        add_post_meta($post_id, $label, $value);
     }
+
 
     wp_mail($sender_email, $subject, $message, $headers);
 
