@@ -56,16 +56,16 @@ function fill_submission_columns($column, $post_id)
 {
     switch ($column) {
         case "name":
-            echo get_post_meta($post_id, "name", true);
+            echo esc_html(get_post_meta($post_id, "name", true));
             break;
         case "email":
-            echo get_post_meta($post_id, "email", true);
+            echo esc_html(get_post_meta($post_id, "email", true));
             break;
         case "phone":
-            echo get_post_meta($post_id, "phone", true);
+            echo esc_html(get_post_meta($post_id, "phone", true));
             break;
         case "message":
-            echo get_post_meta($post_id, "message", true);
+            echo esc_html(get_post_meta($post_id, "message", true));
             break;
     }
 }
@@ -92,10 +92,10 @@ function display_submission()
     $postMetas = get_post_meta(get_the_ID());
 
     echo "<ul>";
-    echo "<li><strong>Name: </strong><br />" . get_post_meta(get_the_ID(), "name", true) . "</li>";
-    echo "<li><strong>Email: </strong><br />" . get_post_meta(get_the_ID(), "email", true) . "</li>";
-    echo "<li><strong>Phone: </strong><br />" . get_post_meta(get_the_ID(), "phone", true) . "</li>";
-    echo "<li><strong>Message: </strong><br />" . get_post_meta(get_the_ID(), "message", true) . "</li>";
+    echo "<li><strong>Name: </strong><br />" . esc_html(get_post_meta(get_the_ID(), "name", true)) . "</li>";
+    echo "<li><strong>Email: </strong><br />" . esc_html(get_post_meta(get_the_ID(), "email", true)) . "</li>";
+    echo "<li><strong>Phone: </strong><br />" . esc_html(get_post_meta(get_the_ID(), "phone", true)) . "</li>";
+    echo "<li><strong>Message: </strong><br />" . esc_html(get_post_meta(get_the_ID(), "message", true)) . "</li>";
     echo "</ul>";
 
     // foreach ($postMetas as $key => $value) {
