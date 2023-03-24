@@ -17,16 +17,17 @@ function display_submission()
 {
     $postMetas = get_post_meta(get_the_ID());
 
-    unset($postMetas["_edit_lock"]);
-    unset($postMetas["rest_route"]);
-
     echo "<ul>";
-
-    foreach ($postMetas as $key => $value) {
-        echo "<li><strong>" . ucfirst($key) . "</strong><br />" . $value[0] . "</li>";
-    }
-
+    echo "<li><strong>Name: </strong><br />" . get_post_meta(get_the_ID(), "name", true) . "</li>";
+    echo "<li><strong>Email: </strong><br />" . get_post_meta(get_the_ID(), "email", true) . "</li>";
+    echo "<li><strong>Phone: </strong><br />" . get_post_meta(get_the_ID(), "phone", true) . "</li>";
+    echo "<li><strong>Message: </strong><br />" . get_post_meta(get_the_ID(), "message", true) . "</li>";
     echo "</ul>";
+
+    // foreach ($postMetas as $key => $value) {
+    //     echo "<li><strong>" . ucfirst($key) . "</strong><br />" . $value[0] . "</li>";
+    // }
+
 }
 
 function create_submissions_page()
@@ -39,6 +40,12 @@ function create_submissions_page()
             "singular_name" => "Submission"
         ],
         "supports" => false,
+        "capability_type" => "post",
+        "capabilities" => array(
+            "create_posts" => false
+        ),
+        "map_meta_cap" => true
+
         // "supports" => ["custom-fields"],
         // "supports" => ["title", "editor",  "custom-fields"],
         // "capability_type" => "post",
