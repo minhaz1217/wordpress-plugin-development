@@ -116,7 +116,8 @@ function create_submissions_page()
         "publicly_queryable" => false,
         "labels" => [
             "name" => "Submissions",
-            "singular_name" => "Submission"
+            "singular_name" => "Submission",
+            "edit_item" => "View Submission"
         ],
         "supports" => false,
         "capability_type" => "post",
